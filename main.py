@@ -74,6 +74,7 @@ def MergedPdf(folder, saveFolder):
             count = count + 1
 
         reponse = input("Quitter l'application  ou Continuer la modification ? (q/c) : ")
+        
         if reponse == "q":
             value = False
         else:
