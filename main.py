@@ -4,7 +4,6 @@ from fpdf import FPDF
 from PyPDF2 import PdfMerger
 
 
-
 # function count number of txt file il a folder
 def countFileInFolder(folder):
     count = 0
@@ -12,6 +11,7 @@ def countFileInFolder(folder):
         if file.endswith(".txt"):
             count += 1
     return count
+
 
 def convertAllCppToTxt(folder):
     for file in os.listdir(folder):
@@ -21,6 +21,10 @@ def convertAllCppToTxt(folder):
             # rename file
             os.rename(folder + "/" + file, folder +
                       "/" + file[:-4] + "_HPP" + ".txt")
+        if file.endswith(".h"):
+            os.rename(folder + "/" + file, folder +
+                      "/" + file[:-2] + "_H" + ".txt")
+
 
 def convertTxtToPdf(filename, folder, saveFolder):
     # save FPDF() class into
@@ -73,8 +77,9 @@ def MergedPdf(folder, saveFolder):
             print("#" + str(count) + " : " + pdf)
             count = count + 1
 
-        reponse = input("Quitter l'application  ou Continuer la modification ? (q/c) : ")
-        
+        reponse = input(
+            "Quitter l'application  ou Continuer la modification ? (q/c) : ")
+
         if reponse == "q":
             value = False
         else:
@@ -96,7 +101,6 @@ def MergedPdf(folder, saveFolder):
         if reponse == "q":
             value = False
 
-    
     newFilenameofOutput = input("Entrer le nom du fichier de sortie : ")
     print("Merging en cours ....")
 
@@ -105,10 +109,11 @@ def MergedPdf(folder, saveFolder):
     newFilenameofOutput = saveFolder + "/" + newFilenameofOutput + ".pdf"
 
     for pdf in pdfs:
-        merger.append(folder + "/" +pdf)
+        merger.append(folder + "/" + pdf)
 
     merger.write(newFilenameofOutput)
     merger.close()
+
 
 def deleteAllFileInFolder(folder):
     for file in os.listdir(folder):
@@ -117,11 +122,12 @@ def deleteAllFileInFolder(folder):
         if file.endswith(".pdf"):
             os.remove(folder + "/" + file)
 
+
 def main():
     folder = "documentToConvert"
     saveFolder = "documentPDF"
     finalFolder = "FinalResult"
-    
+
     print("Le programme de conversion de fichier .cpp en .pdf commence ...")
 
     # rename all file extension in a folder documentToConvert  from cpp to txt
@@ -141,8 +147,6 @@ def main():
     # delete all file in folder
     deleteAllFileInFolder(saveFolder)
     deleteAllFileInFolder(folder)
-    
+
+
 main()
-
-
-
